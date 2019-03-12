@@ -1,0 +1,14 @@
+F:\source\dotnet\dancing_with_death\DanceApi\bin\Debug\netcoreapp2.1\DanceApi.deps.json
+F:\source\dotnet\dancing_with_death\DanceApi\bin\Debug\netcoreapp2.1\DanceApi.runtimeconfig.json
+F:\source\dotnet\dancing_with_death\DanceApi\bin\Debug\netcoreapp2.1\DanceApi.runtimeconfig.dev.json
+F:\source\dotnet\dancing_with_death\DanceApi\bin\Debug\netcoreapp2.1\DanceApi.dll
+F:\source\dotnet\dancing_with_death\DanceApi\obj\Debug\netcoreapp2.1\DanceApi.csprojAssemblyReference.cache
+F:\source\dotnet\dancing_with_death\DanceApi\obj\Debug\netcoreapp2.1\DanceApi.csproj.CoreCompileInputs.cache
+F:\source\dotnet\dancing_with_death\DanceApi\obj\Debug\netcoreapp2.1\DanceApi.RazorAssemblyInfo.cache
+F:\source\dotnet\dancing_with_death\DanceApi\obj\Debug\netcoreapp2.1\DanceApi.RazorAssemblyInfo.cs
+F:\source\dotnet\dancing_with_death\DanceApi\obj\Debug\netcoreapp2.1\DanceApi.AssemblyInfoInputs.cache
+F:\source\dotnet\dancing_with_death\DanceApi\obj\Debug\netcoreapp2.1\DanceApi.AssemblyInfo.cs
+F:\source\dotnet\dancing_with_death\DanceApi\obj\Debug\netcoreapp2.1\DanceApi.RazorTargetAssemblyInfo.cache
+F:\source\dotnet\dancing_with_death\DanceApi\bin\Debug\netcoreapp2.1\DanceApi.pdb
+F:\source\dotnet\dancing_with_death\DanceApi\obj\Debug\netcoreapp2.1\DanceApi.dll
+F:\source\dotnet\dancing_with_death\DanceApi\obj\Debug\netcoreapp2.1\DanceApi.pdb
