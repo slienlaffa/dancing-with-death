@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>Dancing with Death</title>
+    <link rel="stylesheet" type="text/css" media="screen" href="css/bulma.min.css">
+    <link rel="stylesheet" type="text/css" media="screen" href="css/custom.css">
+</head>
+<body>
+    <div class="container">
+        <h1 class="title is-1">Dancing with Death</h1>
+    <div class="columns">
+        <div class="column is-one-quarter">
+            <form action="javascript:void(0);" method="POST" onsubmit="addItem()">
+                <div class="field">
+                    <label class="label">Date Appointment</label>
+                    <div class="control">
+                        <input class="input" type="date" name="DateAppointment" onchange="fetchAvailableHours(event)" required>
+                    </div>
+                </div>
+                <div class="card">
+                    <div class="field">
+                        <div class="card-header">
+                            <p class="card-header-title">
+                            Select an hour
+                            </p>                            
+                        </div>
+                        <div class="card-content">                        
+                            <div class="control" id="radios">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+      
+                <div class="field">
+                    <label class="label">Email</label>
+                    <div class="control">
+                        <input class="input" type="email" placeholder="Email input" name="Email">
+                    </div>
+                </div>
+                <div class="field">
+                    <label class="label">Phone</label>
+                    <div class="control">
+                    <input class="input" type="text" placeholder="555 5555" name="PhoneNumber">
+                </div>
+                <div class="field">
+                    <button type="submit" class="button is-link">Book</button>                    
+                </div>
+                <p class="help is-danger is-size-5" id="error"></p>
+            </form>
+        </div>
+    </div>
+    <div class="column">
+    <p id="counter"></p>
+
+    <table class="table">
+        <thead>
+        <tr>
+            <th>Date</th>
+            <th>Hour</th>
+            <th>Email</th>
+            <th>Phone</th>
+            <th></th>
+        </tr>
+        <thead>
+        <tbody id="todos">
+        </tbody>
+    </table>
+    </div>
+    </div>
+
+    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+    <script src="js/site.js"></script>
+    </div>
+</body>
+</html>

@@ -23,7 +23,7 @@ namespace DanceApi.Controllers
         [HttpGet]
         public async Task<ActionResult<IEnumerable<Appointment>>> GetAppointments()
         {
-            return await _context.Appointments.ToListAsync();
+            return await _context.Appointments.OrderByDescending(a => a.Id).Take(10).ToListAsync();
         }
 
         // GET: api/Appointments/5
@@ -46,8 +46,9 @@ namespace DanceApi.Controllers
         {
             if (!containInformationNeeded(item)) return BadRequest("Must contain date, time and contact(email or phone)");
             if (!ModelState.IsValid) return BadRequest(ModelState);
+            if (item.DateAppointment < DateTime.Today && DateTime.Now.Hour <= item.StartTime) return Conflict("Sorry our time machine is broken, please reserve some date not in the past");
             if (!isOfficeHours(item)) return Conflict("Must be office hours (9 am to 6pm Monday to Friday)");
-            if (findByDateStart(item)) return Conflict("Date and hour already booked");
+            if (await findByDateStart(item)) return Conflict("Date and hour already booked");
 
             _context.Appointments.Add(item);
             await _context.SaveChangesAsync();
@@ -61,8 +62,9 @@ namespace DanceApi.Controllers
         {
             if (!containInformationNeeded(item)) return BadRequest("Must contain date, time and contact(email or phone)");
             if (!ModelState.IsValid) return BadRequest(ModelState);
+            if (item.DateAppointment < DateTime.Today && DateTime.Now.Hour <= item.StartTime) return Conflict("Sorry our time machine is broken, please reserve some date not in the past");
             if (!isOfficeHours(item)) return Conflict("Must be office hours (9 am to 6pm Monday to Friday)");
-            if (findByDateStart(item)) return Conflict("Date and hour already booked");
+            if (await findByDateStart(item)) return Conflict("Date and hour already booked");
 
             if (id != item.Id)
             {
@@ -92,6 +94,19 @@ namespace DanceApi.Controllers
             return NoContent();
         }
 
+        // GET: api/Appointments/5
+        [HttpGet("getAvailableHours/{date}")]
+        public async Task<ActionResult<List<int>>> GetAvailableHours(DateTime date)
+        {
+            List<int> hours = Enumerable.Range(9, 10).ToList(); // Arreglo de 9 a 18
+
+            var found = await _context.Appointments
+                .Where(q => q.DateAppointment == date)
+                .Select(c => c.StartTime)
+                .ToListAsync();
+            return hours.Except(found).ToList();
+        }
+
         private bool isOfficeHours(Appointment a)
         {
             return a.StartTime >= 9 &&
@@ -110,14 +125,14 @@ namespace DanceApi.Controllers
                 );
         }
 
-        private bool findByDateStart(Appointment a)
+        private async Task<bool> findByDateStart(Appointment a)
         {
             try
             {
-                var appointment = _context.Appointments
+                var appointment = await _context.Appointments
                     .Where(q => q.DateAppointment == a.DateAppointment &&
                     q.StartTime == a.StartTime)
-                    .FirstOrDefault();
+                    .FirstOrDefaultAsync<Appointment>();                    
 
                 Console.WriteLine(appointment.Email);
                 return true;
