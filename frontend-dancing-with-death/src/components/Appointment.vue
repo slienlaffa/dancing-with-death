@@ -131,7 +131,7 @@ export default {
   data() {
     return {
       dance: false,
-      uri: 'https://localhost:5001/api/appointments',
+      uri: 'api/appointments',
       errors: [],
       appointments: [],
       Email: null,
