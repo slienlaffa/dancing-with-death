@@ -120,7 +120,6 @@
 </template>
 
 <script>
-// TODO mensaje de existo al poster
 import axios from 'axios'
 import Calendar from 'imarker'
 
