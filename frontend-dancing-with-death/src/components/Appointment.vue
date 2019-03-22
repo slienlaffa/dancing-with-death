@@ -4,6 +4,12 @@
       Dancing with Death
       <img src="../assets/death-icon.png" alt="death icon" id="logo" />
     </h1>
+    <img
+      src="../assets/dancing_with_death300.png"
+      alt="death dancing"
+      id="death"
+      v-if="dance"
+    />
     <div class="columns">
       <div class="column is-one-third">
         <form method="POST" @submit.prevent="addItem()">
@@ -125,6 +131,7 @@ export default {
   },
   data() {
     return {
+      dance: false,
       uri: 'https://localhost:5001/api/appointments',
       errors: [],
       appointments: [],
@@ -136,7 +143,16 @@ export default {
     }
   },
   methods: {
-    async fetchAvailableHours() {},
+    async fetchAvailableHours() {
+      try {
+        const response = await axios.get(
+          this.uri + '/getAvailableHours/' + this.DateAppointment
+        )
+        this.radios = response.data
+      } catch (error) {
+        this.errors.push(error.response.data)
+      }
+    },
     async addItem() {
       this.errors = []
       if (
@@ -156,6 +172,9 @@ export default {
           this.appointments.unshift(response.data)
           this.Email = null
           this.PhoneNumber = null
+          this.StartTime = null
+          this.fetchAvailableHours()
+          this.dancing()
         } catch (error) {
           this.errors.push(error.response.data)
         }
@@ -169,14 +188,15 @@ export default {
     async setDate(e) {
       this.DateAppointment = e.date
       this.errors = []
-      try {
-        const response = await axios.get(
-          this.uri + '/getAvailableHours/' + this.DateAppointment
-        )
-        this.radios = response.data
-      } catch (error) {
-        this.errors.push(error.response.data)
-      }
+      this.fetchAvailableHours()
+    },
+    sleep(ms) {
+      return new Promise(resolve => setTimeout(resolve, ms))
+    },
+    async dancing() {
+      this.dance = true
+      await this.sleep(5000)
+      this.dance = false
     }
   },
   async created() {
@@ -206,5 +226,45 @@ export default {
 }
 #logo {
   margin-top: 5px;
+}
+@-webkit-keyframes run {
+  0% {
+    left: 0;
+  }
+  100% {
+    left: 100%;
+  }
+}
+@keyframes run {
+  0% {
+    left: 0;
+  }
+  100% {
+    left: 100%;
+  }
+}
+
+@-webkit-keyframes dance {
+  0% {
+    -webkit-transform: rotateY(0deg);
+  }
+  100% {
+    -webkit-transform: rotateY(360deg);
+  }
+}
+@keyframes dance {
+  0% {
+    -webkit-transform: rotateY(0deg);
+  }
+  100% {
+    -webkit-transform: rotateY(360deg);
+  }
+}
+
+#death {
+  position: absolute;
+  z-index: 10;
+  -webkit-animation: run 6s linear infinite alternate, dance 2s infinite linear;
+  animation: run 6s linear infinite alternate, dance 2s infinite linear;
 }
 </style>
