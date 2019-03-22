@@ -9,7 +9,7 @@
   },
   "dependencies": {
     "axios": "^0.18.0",
-    "bulma": "^0.7.4",
+    "imarker": "^1.1.0",
     "vue": "^2.6.6"
   },
   "devDependencies": {
